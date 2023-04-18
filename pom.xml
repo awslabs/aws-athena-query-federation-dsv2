@@ -12,7 +12,7 @@
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
         <athena.federation.version>2023.15.1</athena.federation.version>
         <spark.version>3.2.1</spark.version>
-        <aws-sdk.version>1.12.440</aws-sdk.version>
+        <aws-sdk.version>1.12.451</aws-sdk.version>
         <slf4j-log4j.version>2.0.7</slf4j-log4j.version>
         <junit.version>4.13.2</junit.version>
         <surefire.failsafe.version>3.0.0</surefire.failsafe.version>
