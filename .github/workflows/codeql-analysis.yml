@@ -1,0 +1,42 @@
+# From: https://github.com/awslabs/aws-athena-query-federation/blob/master/.github/workflows/codeql-analysis.yml
+name: "Code scanning - action"
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: '0 12 * * 6'
+
+jobs:
+  # This is from: https://github.com/fkirc/skip-duplicate-actions#example-1-skip-entire-jobs
+  pre_job:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5.3.0
+        with:
+          cancel_others: 'true'
+          concurrent_skipping: 'same_content_newer'
+
+  CodeQL-Build:
+    needs: pre_job
+    if: needs.pre_job.outputs.should_skip != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+      # Specify custom java build since the autobuild doesn't take advantage of multiple cores.
+      # For more info on specifying custom build steps, see:
+      # https://docs.github.com/en/enterprise-server@3.6/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-the-codeql-workflow-for-compiled-languages#adding-build-steps-for-a-compiled-language
+      - name: Build java
+        run: mvn clean package -T 1C -DskipTests
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
