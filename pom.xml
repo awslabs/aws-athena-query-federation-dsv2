@@ -10,7 +10,7 @@
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
         <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
-        <athena.federation.version>2023.15.1</athena.federation.version>
+        <athena.federation.version>2023.16.1</athena.federation.version>
         <spark.version>3.2.1</spark.version>
         <aws-sdk.version>1.12.440</aws-sdk.version>
         <slf4j-log4j.version>2.0.7</slf4j-log4j.version>
