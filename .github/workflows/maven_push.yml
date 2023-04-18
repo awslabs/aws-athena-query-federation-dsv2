@@ -1,0 +1,35 @@
+# From: https://github.com/awslabs/aws-athena-query-federation/blob/master/.github/workflows/maven_push.yml
+name: Java CI Push
+
+on: [push, pull_request]
+
+jobs:
+  # This is from: https://github.com/fkirc/skip-duplicate-actions#example-1-skip-entire-jobs
+  pre_job:
+    runs-on: ubuntu-latest
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@v5.3.0
+        with:
+          cancel_others: 'true'
+          concurrent_skipping: 'same_content_newer'
+
+  build:
+    needs: pre_job
+    if: needs.pre_job.outputs.should_skip != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '11'
+      # Target java 8 to ensure that the source is compatible with java 8
+      - name: Build with Maven
+        env:
+          AWS_DEFAULT_REGION: us-east-1
+          AWS_REGION: us-east-1
+        run: mvn -B clean package -T 1C --file pom.xml -Dmaven.compiler.release=8
