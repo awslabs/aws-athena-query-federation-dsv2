@@ -62,16 +62,7 @@ jobs:
           git log --format='  - %s' $PREVIOUS_RELEASE_TAG..HEAD >> /tmp/RELEASE_MESSAGE
           git commit -a -F /tmp/RELEASE_MESSAGE
 
-      - name: Push the release branch
-        run: |
-          git push origin release_${NEW_RELEASE_VERSION}:release_${NEW_RELEASE_VERSION}
-
-      - name: Sync up with origin again now that the new branch has been pushed
-        run: |
-          git fetch origin
-          git pull --rebase origin release_${NEW_RELEASE_VERSION}
-
-      - name: Build Java 11 jars
+      - name: Build jars
         run: |
           mvn clean package -T 1C -DskipTests
 
@@ -82,6 +73,15 @@ jobs:
           # Copy over the connector jars
           mkdir -p /tmp/connector_jars/
           find athena-*/target -name "*.jar" -type f | grep -v "/original" | grep -v "\-sdk-" | xargs -I{} cp {} /tmp/connector_jars/
+
+      - name: Push the release branch
+        run: |
+          git push origin release_${NEW_RELEASE_VERSION}:release_${NEW_RELEASE_VERSION}
+
+      - name: Sync up with origin again now that the new branch has been pushed
+        run: |
+          git fetch origin
+          git pull --rebase origin release_${NEW_RELEASE_VERSION}
 
       - name: Create the release on github
         env:
