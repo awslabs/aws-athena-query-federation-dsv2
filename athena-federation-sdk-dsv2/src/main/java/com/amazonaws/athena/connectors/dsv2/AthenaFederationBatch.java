@@ -28,6 +28,7 @@ import com.amazonaws.athena.connector.lambda.metadata.GetTableLayoutResponse;
 import com.amazonaws.athena.connector.lambda.records.ReadRecordsRequest;
 import com.amazonaws.athena.connector.lambda.request.FederationRequest;
 import com.amazonaws.athena.connector.lambda.serde.VersionedObjectMapperFactory;
+import com.amazonaws.athena.connector.util.PaginatedRequestIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.spark.sql.connector.read.Batch;
 import org.apache.spark.sql.connector.read.InputPartition;
@@ -36,7 +37,7 @@ import org.apache.spark.sql.util.ArrowUtils;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class AthenaFederationBatch implements Batch
@@ -75,11 +76,7 @@ public class AthenaFederationBatch implements Batch
             GetTableLayoutResponse layoutResponse = metadataHandler.doGetTableLayout(blockAllocator, layoutReq);
 
             // Lambda to get splits given a continuation token
-            BiFunction<String, Boolean, GetSplitsResponse> getSplits = (continuationToken, start) -> {
-                if (!start && continuationToken == null) {
-                    return null;
-                }
-
+            Function<String, GetSplitsResponse> getSplits = (continuationToken) -> {
                 try {
                     return metadataHandler.doGetSplits(
                         blockAllocator,
@@ -100,37 +97,30 @@ public class AthenaFederationBatch implements Batch
             };
 
             // Grab all the splits from all the pages
-            Stream<AthenaFederationInputPartition> allInputPartitions = Stream.empty();
-            for (
-                GetSplitsResponse currentResponse = getSplits.apply(null, true);
-                currentResponse != null;
-                currentResponse = getSplits.apply(currentResponse.getContinuationToken(), false)
-            ) {
-                  Stream<AthenaFederationInputPartition> currentInputPartitions = currentResponse.getSplits().stream()
-                      .map(split -> {
-                          try {
-                               return AthenaFederationInputPartition.fromReadRecordsRequest(
-                                  new ReadRecordsRequest(
-                                      layoutReq.getIdentity(),
-                                      layoutReq.getCatalogName(),
-                                      layoutReq.getQueryId(),
-                                      layoutReq.getTableName(),
-                                      layoutReq.getSchema(),
-                                      split,
-                                      layoutReq.getConstraints(),
-                                      // Setting both of these to be equal should disable spilling
-                                      blockSize,
-                                      blockSize),
-                                  objectMapper);
-                          }
-                          catch (com.fasterxml.jackson.core.JsonProcessingException ex) {
-                              // Lambda is not allowed to throw a checked exception so we have to rethrow here as an unchecked
-                              throw new RuntimeException(ex);
-                          }
-                      });
-                  allInputPartitions = Stream.concat(allInputPartitions, currentInputPartitions);
-              }
-              return allInputPartitions.toArray(InputPartition[]::new);
+            return PaginatedRequestIterator.stream(getSplits, GetSplitsResponse::getContinuationToken)
+                .flatMap(currentResponse -> currentResponse.getSplits().stream())
+                .map(split -> {
+                     try {
+                          return AthenaFederationInputPartition.fromReadRecordsRequest(
+                             new ReadRecordsRequest(
+                                 layoutReq.getIdentity(),
+                                 layoutReq.getCatalogName(),
+                                 layoutReq.getQueryId(),
+                                 layoutReq.getTableName(),
+                                 layoutReq.getSchema(),
+                                 split,
+                                 layoutReq.getConstraints(),
+                                 // Setting both of these to be equal should disable spilling
+                                 blockSize,
+                                 blockSize),
+                             objectMapper);
+                     }
+                     catch (com.fasterxml.jackson.core.JsonProcessingException ex) {
+                         // Lambda is not allowed to throw a checked exception so we have to rethrow here as an unchecked
+                         throw new RuntimeException(ex);
+                     }
+                })
+                .toArray(InputPartition[]::new);
         }
         catch (Exception ex) {
             // We must catch and rethrow here because the interface of `planInputPartitions` does not
