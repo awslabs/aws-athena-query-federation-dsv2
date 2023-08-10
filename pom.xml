@@ -26,7 +26,7 @@
           This version should be kept in sync with aws-athena-query-federation's
           version to avoid any runtime incompatibilities.
         -->
-        <apache.arrow.version>10.0.1</apache.arrow.version>
+        <apache.arrow.version>12.0.1</apache.arrow.version>
         <aws-sdk.version>1.12.515</aws-sdk.version>
         <slf4j-log4j.version>2.0.7</slf4j-log4j.version>
         <junit.version>4.13.2</junit.version>
