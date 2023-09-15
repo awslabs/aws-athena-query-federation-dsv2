@@ -20,7 +20,7 @@
           spark.version should not be auto bumped by dependabot.
           We are purposefully keeping this at a "lowest common denominator" version.
         -->
-        <spark.version>3.2.1</spark.version>
+        <spark.version>3.5.0</spark.version>
         <!--
           apache.arrow.version should not be auto bumped by dependabot.
           This version should be kept in sync with aws-athena-query-federation's
