@@ -9,7 +9,7 @@
       athena.federation.version, but we retain the optionality to version
       them separately in the future.
     -->
-    <version>2023.16.0</version>
+    <version>2023.41.1</version>
     <name>AWS Athena Query Federation DSV2</name>
     <description>Amazon Athena Query Federation DSV2</description>
     <properties>
