@@ -31,7 +31,7 @@
         <slf4j-log4j.version>2.0.9</slf4j-log4j.version>
         <junit.version>4.13.2</junit.version>
         <surefire.failsafe.version>3.1.2</surefire.failsafe.version>
-        <log4j2Version>2.20.0</log4j2Version>
+        <log4j2Version>2.21.0</log4j2Version>
         <fasterxml.jackson.version>2.15.3</fasterxml.jackson.version>
         <log4j2.cachefile.transformer.version>2.15</log4j2.cachefile.transformer.version>
         <!-- These are mvn on purpose to not conflict with the maven.* namespace -->
