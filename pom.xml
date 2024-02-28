@@ -15,7 +15,7 @@
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
-        <athena.federation.version>2023.49.2</athena.federation.version>
+        <athena.federation.version>2024.8.1</athena.federation.version>
         <!--
           spark.version should not be auto bumped by dependabot.
           We are purposefully keeping this at a "lowest common denominator" version.

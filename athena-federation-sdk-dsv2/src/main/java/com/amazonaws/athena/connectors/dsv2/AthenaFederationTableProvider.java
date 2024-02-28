@@ -34,6 +34,7 @@ import org.apache.spark.sql.types.StructType;
 import org.apache.spark.sql.util.ArrowUtils;
 import org.apache.spark.sql.util.CaseInsensitiveStringMap;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -104,7 +105,8 @@ public abstract class AthenaFederationTableProvider implements TableProvider, At
                 federationAdapterDefinition.getFederatedIdentity(properties),
                 federationAdapterDefinition.getQueryId(properties),
                 federationAdapterDefinition.getCatalogName(properties),
-                federationAdapterDefinition.getTableName(properties));
+                federationAdapterDefinition.getTableName(properties), 
+                Collections.emptyMap());
 
             // doGetTable will return the table schema with the partition columns included as part of the schema.
             // Also the arrow table schema may contain metadata that needs to be passed on to other calls down the chain.

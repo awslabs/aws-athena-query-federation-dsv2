@@ -41,12 +41,15 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static com.amazonaws.athena.connector.lambda.domain.predicate.Constraints.DEFAULT_NO_LIMIT;
 
 public class AthenaFederationScanBuilder implements ScanBuilder, SupportsPushDownRequiredColumns, SupportsPushDownFilters
 {
@@ -170,7 +173,7 @@ public class AthenaFederationScanBuilder implements ScanBuilder, SupportsPushDow
         // methods that it has to call.
         try {
             ObjectMapper objectMapper = VersionedObjectMapperFactory.create(blockAllocator);
-            Constraints constraints = new Constraints(constraintsMap);
+            Constraints constraints = new Constraints(constraintsMap, Collections.emptyList(), Collections.emptyList(), DEFAULT_NO_LIMIT, Collections.emptyMap());
             GetTableLayoutRequest layoutReq = new GetTableLayoutRequest(
                 federationAdapterDefinition.getFederatedIdentity(properties),
                 federationAdapterDefinition.getQueryId(properties),
