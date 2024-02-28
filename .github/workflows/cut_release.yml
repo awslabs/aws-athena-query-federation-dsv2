@@ -7,7 +7,7 @@ on:
 jobs:
   cut_release:
     name: Cut a release
-    runs-on: aws-athena-query-federation_ubuntu-latest_16-core 
+    runs-on: ubuntu-latest
     steps:
       - name: Update
         run: |
