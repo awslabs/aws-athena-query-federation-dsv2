@@ -14,7 +14,7 @@
     <description>Amazon Athena Query Federation DSV2</description>
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
-        <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
         <athena.federation.version>2024.10.1</athena.federation.version>
         <!--
           spark.version should not be auto bumped by dependabot.
