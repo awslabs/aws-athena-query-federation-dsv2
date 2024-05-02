@@ -27,7 +27,7 @@
           version to avoid any runtime incompatibilities.
         -->
         <apache.arrow.version>13.0.0</apache.arrow.version>
-        <aws-sdk.version>1.12.678</aws-sdk.version>
+        <aws-sdk.version>1.12.713</aws-sdk.version>
         <slf4j-log4j.version>2.0.12</slf4j-log4j.version>
         <junit.version>4.13.2</junit.version>
         <surefire.failsafe.version>3.2.2</surefire.failsafe.version>
