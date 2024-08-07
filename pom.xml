@@ -28,7 +28,7 @@
         -->
         <apache.arrow.version>13.0.0</apache.arrow.version>
         <aws-sdk.version>1.12.717</aws-sdk.version>
-        <slf4j-log4j.version>2.0.13</slf4j-log4j.version>
+        <slf4j-log4j.version>2.0.14</slf4j-log4j.version>
         <junit.version>4.13.2</junit.version>
         <surefire.failsafe.version>3.2.2</surefire.failsafe.version>
         <log4j2Version>2.23.1</log4j2Version>
