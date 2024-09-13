@@ -15,7 +15,7 @@
     <properties>
         <maven.compiler.release>8</maven.compiler.release>
         <maven.compiler.plugin.version>3.12.1</maven.compiler.plugin.version>
-        <athena.federation.version>2024.20.2</athena.federation.version>
+        <athena.federation.version>2024.33.1</athena.federation.version>
         <!--
           spark.version should not be auto bumped by dependabot.
           We are purposefully keeping this at a "lowest common denominator" version.
@@ -45,7 +45,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.10.2</version>
+                <version>5.11.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -139,7 +139,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.6.1</version>
+                    <version>3.8.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -319,7 +319,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.2.4</version>
+                        <version>3.2.5</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
