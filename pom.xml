@@ -32,7 +32,7 @@
         <junit.version>4.13.2</junit.version>
         <surefire.failsafe.version>3.2.2</surefire.failsafe.version>
         <log4j2Version>2.23.1</log4j2Version>
-        <fasterxml.jackson.version>2.17.2</fasterxml.jackson.version>
+        <fasterxml.jackson.version>2.18.0</fasterxml.jackson.version>
         <log4j2.cachefile.transformer.version>2.15</log4j2.cachefile.transformer.version>
         <!-- These are mvn on purpose to not conflict with the maven.* namespace -->
         <mvn.shade.plugin.version>3.6.0</mvn.shade.plugin.version>
