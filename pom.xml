@@ -27,12 +27,12 @@
           version to avoid any runtime incompatibilities.
         -->
         <apache.arrow.version>18.1.0</apache.arrow.version>
-        <aws-sdk.version>1.12.782</aws-sdk.version>
+        <aws-sdk.version>1.12.783</aws-sdk.version>
         <slf4j-log4j.version>2.0.17</slf4j-log4j.version>
         <junit.version>4.13.2</junit.version>
         <surefire.failsafe.version>3.2.2</surefire.failsafe.version>
         <log4j2Version>2.24.3</log4j2Version>
-        <fasterxml.jackson.version>2.18.2</fasterxml.jackson.version>
+        <fasterxml.jackson.version>2.19.0</fasterxml.jackson.version>
         <log4j2.cachefile.transformer.version>2.15</log4j2.cachefile.transformer.version>
         <!-- These are mvn on purpose to not conflict with the maven.* namespace -->
         <mvn.shade.plugin.version>3.6.0</mvn.shade.plugin.version>
@@ -45,7 +45,7 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.12.0</version>
+                <version>5.12.2</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
