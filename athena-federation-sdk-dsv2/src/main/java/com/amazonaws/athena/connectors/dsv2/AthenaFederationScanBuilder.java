@@ -173,7 +173,7 @@ public class AthenaFederationScanBuilder implements ScanBuilder, SupportsPushDow
         // methods that it has to call.
         try {
             ObjectMapper objectMapper = VersionedObjectMapperFactory.create(blockAllocator);
-            Constraints constraints = new Constraints(constraintsMap, Collections.emptyList(), Collections.emptyList(), DEFAULT_NO_LIMIT, Collections.emptyMap());
+            Constraints constraints = new Constraints(constraintsMap, Collections.emptyList(), Collections.emptyList(), DEFAULT_NO_LIMIT, Collections.emptyMap(), null);
             GetTableLayoutRequest layoutReq = new GetTableLayoutRequest(
                 federationAdapterDefinition.getFederatedIdentity(properties),
                 federationAdapterDefinition.getQueryId(properties),

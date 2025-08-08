@@ -103,7 +103,8 @@ public interface AthenaFederationAdapterDefinition
             "AthenaFederationUnusedARN",
             account,
             com.google.common.collect.ImmutableMap.of(),
-            com.google.common.collect.ImmutableList.of());
+            com.google.common.collect.ImmutableList.of(),
+            com.google.common.collect.ImmutableMap.of());
     }
 
     public default String getQueryId(Map<String, String> configOptions)
