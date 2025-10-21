@@ -4,6 +4,9 @@ name: Cut release
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   cut_release:
     name: Cut a release
